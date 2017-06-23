@@ -7,70 +7,72 @@ import java.util.Set;
 
 
 public class MyHashSet<E>
-        extends AbstractSet<E>
-        implements Set<E>
+		extends AbstractSet<E>
+		implements Set<E>
 {
-    private transient MyHashMap<E, Object> map;
-    private static final Object PRESENT = new Object();
+	private transient MyHashMap<E, Object> map;
+	private static final Object PRESENT = new Object();
 
+	public MyHashSet(HashFunction hashFunction, EqualFunction equalFunction) {
+		map = new MyHashMap<>(hashFunction, equalFunction);
+	}
 
-    public MyHashSet(HashFunction hashFunction, EqualFunction equalFunction) {
-        map = new MyHashMap<>(hashFunction, equalFunction);
-    }
+	public MyHashSet(Collection<? extends E> c, HashFunction hashFunction, EqualFunction equalFunction) {
+		map = new MyHashMap<>(Math.max((int) (c.size() / .75f) + 1, 16), hashFunction, equalFunction);
+		addAll(c);
+	}
 
+	public MyHashSet(int initialCapacity, float loadFactor, HashFunction hashFunction, EqualFunction equalFunction) {
+		map = new MyHashMap<>(initialCapacity, loadFactor, hashFunction, equalFunction);
+	}
 
-    public MyHashSet(Collection<? extends E> c, HashFunction hashFunction, EqualFunction equalFunction) {
-        map = new MyHashMap<>(Math.max((int) (c.size() / .75f) + 1, 16), hashFunction, equalFunction);
-        addAll(c);
-    }
+	public MyHashSet(int initialCapacity, HashFunction hashFunction, EqualFunction equalFunction) {
+		map = new MyHashMap<>(initialCapacity, hashFunction, equalFunction);
+	}
 
+	public MyHashSet() {
+		map = new MyHashMap<>(new GenericHashFunction(), new GenericEqualFunction());
+	}
 
-    public MyHashSet(int initialCapacity, float loadFactor, HashFunction hashFunction, EqualFunction equalFunction) {
-        map = new MyHashMap<>(initialCapacity, loadFactor, hashFunction, equalFunction);
-    }
+	@Override
+	public Iterator<E> iterator()
+	{
+		return map.keySet().iterator();
+	}
 
+	@Override
+	public int size()
+	{
+		return map.size();
+	}
 
-    public MyHashSet(int initialCapacity, HashFunction hashFunction, EqualFunction equalFunction) {
-        map = new MyHashMap<>(initialCapacity, hashFunction, equalFunction);
-    }
+	@Override
+	public boolean isEmpty()
+	{
+		return map.isEmpty();
+	}
 
+	@Override
+	public boolean contains(Object o)
+	{
+		return map.containsKey(o);
+	}
 
-    public MyHashSet() {
-        map = new MyHashMap<>(new GenericHashFunction(), new GenericEqualFunction());
-    }
+	@Override
+	public boolean add(E e)
+	{
+		return map.put(e, PRESENT) == null;
+	}
 
+	@Override
+	public boolean remove(Object o)
+	{
+		return map.remove(o) == PRESENT;
+	}
 
-    public Iterator<E> iterator() {
-        return map.keySet().iterator();
-    }
-
-
-    public int size() {
-        return map.size();
-    }
-
-
-    public boolean isEmpty() {
-        return map.isEmpty();
-    }
-
-
-    public boolean contains(Object o) {
-        return map.containsKey(o);
-    }
-
-
-    public boolean add(E e) {
-        return map.put(e, PRESENT) == null;
-    }
-
-
-    public boolean remove(Object o) {
-        return map.remove(o) == PRESENT;
-    }
-
-
-    public void clear() {
-        map.clear();
-    }
+	@Override
+	public void clear()
+	{
+		map.clear();
+	}
 }

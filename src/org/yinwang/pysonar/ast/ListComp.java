@@ -1,26 +1,25 @@
 package org.yinwang.pysonar.ast;
 
-
-
 import java.util.List;
+
 
 public class ListComp extends Node {
 
-    public Node elt;
-    public List<Comprehension> generators;
+	public Node elt;
+	public List<Comprehension> generators;
 
-    public ListComp(Node elt, List<Comprehension> generators, String file, int start, int end, int line, int col) {
-        super(NodeType.LISTCOMP, file, start, end, line, col);
-        this.elt = elt;
-        this.generators = generators;
-        addChildren(elt);
-        addChildren(generators);
-    }
+	public ListComp(Node elt, List<Comprehension> generators, String file, int start, int end, int line, int col) {
+		super(NodeType.LISTCOMP, file, start, end, line, col);
+		this.elt = elt;
+		this.generators = generators;
+		addChildren(elt);
+		addChildren(generators);
+	}
 
-    
-    @Override
-    public String toString() {
-        return "<NListComp:" + start + ":" + elt + ">";
-    }
+	@Override
+	public String toString()
+	{
+		return "<NListComp:" + start + ":" + elt + ">";
+	}
 
 }

@@ -1,33 +1,27 @@
 package org.yinwang.pysonar;
 
-
-
-
 public class Diagnostic {
-    public enum Category {
-        INFO, WARNING, ERROR
-    }
+	public enum Category {
+		INFO, WARNING, ERROR
+	}
 
+	public String file;
+	public Category category;
+	public int start;
+	public int end;
+	public String msg;
 
-    public String file;
-    public Category category;
-    public int start;
-    public int end;
-    public String msg;
+	public Diagnostic(String file, Category category, int start, int end, String msg) {
+		this.category = category;
+		this.file = file;
+		this.start = start;
+		this.end = end;
+		this.msg = msg;
+	}
 
-
-    public Diagnostic(String file, Category category, int start, int end, String msg) {
-        this.category = category;
-        this.file = file;
-        this.start = start;
-        this.end = end;
-        this.msg = msg;
-    }
-
-
-    
-    @Override
-    public String toString() {
-        return "<Diagnostic:" + file + ":" + category + ":" + msg + ">";
-    }
+	@Override
+	public String toString()
+	{
+		return "<Diagnostic:" + file + ":" + category + ":" + msg + ">";
+	}
 }

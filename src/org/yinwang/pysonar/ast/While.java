@@ -1,25 +1,23 @@
 package org.yinwang.pysonar.ast;
 
-
-
 public class While extends Node {
 
-    public Node test;
-    public Node body;
-    public Node orelse;
+	public Node test;
+	public Node body;
+	public Node orelse;
 
-    public While(Node test, Node body, Node orelse, String file, int start, int end, int line, int col) {
-        super(NodeType.WHILE, file, start, end, line, col);
-        this.test = test;
-        this.body = body;
-        this.orelse = orelse;
-        addChildren(test, body, orelse);
-    }
+	public While(Node test, Node body, Node orelse, String file, int start, int end, int line, int col) {
+		super(NodeType.WHILE, file, start, end, line, col);
+		this.test = test;
+		this.body = body;
+		this.orelse = orelse;
+		addChildren(test, body, orelse);
+	}
 
-    
-    @Override
-    public String toString() {
-        return "<While:" + test + ":" + body + ":" + orelse + ":" + start + ">";
-    }
+	@Override
+	public String toString()
+	{
+		return "<While:" + test + ":" + body + ":" + orelse + ":" + start + ">";
+	}
 
 }
