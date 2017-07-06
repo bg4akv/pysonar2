@@ -1,5 +1,6 @@
 package org.yinwang.pysonar;
 
+import org.apache.commons.io.FileUtils;
 import org.yinwang.pysonar.ast.Name;
 import org.yinwang.pysonar.ast.Node;
 import org.yinwang.pysonar.ast.Url;
@@ -65,7 +66,7 @@ public class Analyzer {
 		if (options != null) {
 			this.options = options;
 		} else {
-			this.options = new HashMap();
+			this.options = new HashMap<String, Object>();
 		}
 		stats.putInt("startTime", System.currentTimeMillis());
 		builtins = new Builtins();
@@ -121,7 +122,7 @@ public class Analyzer {
 
 	public void setPath(List<String> path)
 	{
-		this.path = new ArrayList(path.size());
+		this.path = new ArrayList<String>(path.size());
 		addPaths(path);
 	}
 
@@ -143,17 +144,19 @@ public class Analyzer {
 		modelDir = dest;
 
 		try {
-			$.copyResourcesRecursively(resource, new File(dest));
+			//$.copyResourcesRecursively(resource, new File(dest));
+			FileUtils.copyDirectory(new File(Globals.MODEL_LOCATION), new File(dest));
 			$.msg("copied models to: " + modelDir);
 		} catch (Exception e) {
-			$.die("Failed to copy models. Please check permissions of writing to: " + dest);
+			//$.die("Failed to copy models. Please check permissions of writing to: " + dest);
+			e.printStackTrace();
 		}
 		addPath(dest);
 	}
 
 	public List<String> getLoadPath()
 	{
-		List<String> loadPath = new ArrayList();
+		List<String> loadPath = new ArrayList<String>();
 		if (cwd != null) {
 			loadPath.add(cwd);
 		}
@@ -209,7 +212,7 @@ public class Analyzer {
 		if (errs != null) {
 			return errs;
 		}
-		return new ArrayList();
+		return new ArrayList<Diagnostic>();
 	}
 
 	public void putRef(Node node, Collection<Binding> bs)
@@ -217,7 +220,7 @@ public class Analyzer {
 		if (!(node instanceof Url)) {
 			List<Binding> bindings = references.get(node);
 			if (bindings == null) {
-				bindings = new ArrayList(1);
+				bindings = new ArrayList<Binding>(1);
 				references.put(node, bindings);
 			}
 			for (Binding b : bs) {
@@ -231,7 +234,7 @@ public class Analyzer {
 
 	public void putRef(Node node, Binding b)
 	{
-		List<Binding> bs = new ArrayList();
+		List<Binding> bs = new ArrayList<Binding>();
 		bs.add(b);
 		putRef(node, bs);
 	}
@@ -267,7 +270,7 @@ public class Analyzer {
 	{
 		List<Diagnostic> msgs = map.get(file);
 		if (msgs == null) {
-			msgs = new ArrayList();
+			msgs = new ArrayList<Diagnostic>();
 			map.put(file, msgs);
 		}
 		return msgs;
@@ -569,7 +572,7 @@ public class Analyzer {
 		Progress progress = new Progress(uncalled.size(), 50);
 
 		while (!uncalled.isEmpty()) {
-			List<FunType> uncalledDup = new ArrayList(uncalled);
+			List<FunType> uncalledDup = new ArrayList<FunType>(uncalled);
 
 			for (FunType cl : uncalledDup) {
 				progress.tick();
@@ -612,7 +615,7 @@ public class Analyzer {
 
 	public List<String> getLoadedFiles()
 	{
-		List<String> files = new ArrayList();
+		List<String> files = new ArrayList<String>();
 		for (String file : loadedFiles) {
 			if (file.endsWith(Globals.FILE_SUFFIX)) {
 				files.add(file);

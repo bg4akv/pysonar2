@@ -6,7 +6,6 @@ import org.yinwang.pysonar.ast.*;
 
 import java.io.File;
 import java.io.OutputStreamWriter;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +23,7 @@ public class Parser {
 	Process python2Process;
 	Process python3Process;
 	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
-	private static final String dumpPythonResource = "org/yinwang/pysonar/python/dump_python.py";
+	private static final String dumpPythonResource = "demo" + File.separator + "python" + File.separator + "dump_python.py";
 	private String exchangeFile;
 	private String endMark;
 	private String jsonizer;
@@ -57,8 +56,9 @@ public class Parser {
 		// copy dump_python.py to temp dir
 		try
 		{
-			URL url = Thread.currentThread().getContextClassLoader().getResource(dumpPythonResource);
-			FileUtils.copyURLToFile(url, new File(jsonizer));
+			//URL url = Thread.currentThread().getContextClassLoader().getResource(dumpPythonResource);
+			//FileUtils.copyURLToFile(url, new File(jsonizer));
+			FileUtils.copyFile(new File(dumpPythonResource), new File(jsonizer));
 		} catch (Exception e)
 		{
 			$.die("Failed to copy resource file:" + dumpPythonResource);
@@ -889,8 +889,8 @@ public class Parser {
 
 			while (i < qname.length() &&
 					(Character.isJavaIdentifierPart(qname.charAt(i)) ||
-					qname.charAt(i) == '*') &&
-					qname.charAt(i) != '.')
+							qname.charAt(i) == '*') &&
+							qname.charAt(i) != '.')
 			{
 				name += qname.charAt(i);
 				i++;

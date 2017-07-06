@@ -147,5 +147,4 @@ public abstract class Node implements java.io.Serializable, Comparable<Object> {
 	{
 		return "(node:" + file + ":" + name + ":" + start + ")";
 	}
-
 }

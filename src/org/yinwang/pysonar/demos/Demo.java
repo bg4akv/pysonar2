@@ -12,7 +12,6 @@ import java.util.Map;
 
 
 public class Demo {
-
 	private static File OUTPUT_DIR;
 
 	private static final String CSS = $.readResource(String.format("demo%scss%sdemo.css", File.separator, File.separator));
@@ -166,11 +165,12 @@ public class Demo {
 		Options options = new Options(args);
 
 		List<String> argsList = options.getArgs();
-		String fileOrDir = argsList.get(0);
-		OUTPUT_DIR = new File(argsList.get(1));
-
+		//String fileOrDir = argsList.get(0);
+		//OUTPUT_DIR = new File(argsList.get(1));
+		///usr/lib/python2.7 ./html
 		//        System.out.println("options: " + options.getOptionsMap());
-		new Demo().start(fileOrDir, options.getOptionsMap());
+		OUTPUT_DIR = new File("./html");
+		new Demo().start("./test.py", options.getOptionsMap());
 		$.msg($.getGCStats());
 	}
 }

@@ -18,15 +18,7 @@ import org.yinwang.pysonar.types.Type;
 import org.yinwang.pysonar.types.Types;
 import org.yinwang.pysonar.types.UnionType;
 
-import static org.yinwang.pysonar.Binding.Kind.ATTRIBUTE;
-import static org.yinwang.pysonar.Binding.Kind.CLASS;
-import static org.yinwang.pysonar.Binding.Kind.CONSTRUCTOR;
-import static org.yinwang.pysonar.Binding.Kind.FUNCTION;
-import static org.yinwang.pysonar.Binding.Kind.METHOD;
-import static org.yinwang.pysonar.Binding.Kind.MODULE;
-import static org.yinwang.pysonar.Binding.Kind.PARAMETER;
-import static org.yinwang.pysonar.Binding.Kind.SCOPE;
-import static org.yinwang.pysonar.Binding.Kind.VARIABLE;
+import static org.yinwang.pysonar.Binding.Kind.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
